@@ -35,7 +35,6 @@ class DesignTacoController {
             model.addAttribute(it.toString().lowercase())
             filterByType(ingredients, it)
         }
-
     }
     @ModelAttribute(name = "TacoOrder")
     fun tacoOrder() = TacoOrder()
@@ -46,7 +45,7 @@ class DesignTacoController {
 
     private fun filterByType(ingredients: List<Ingredient>, type: Ingredient.Type): Iterable<Ingredient> {
         return ingredients.stream()
-            .filter{ x -> x.getType() == type }
+            .filter{ x -> x.getType().equals(type) }
             .collect(Collectors.toList())
     }
 }
