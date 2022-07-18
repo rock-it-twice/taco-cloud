@@ -1,7 +1,7 @@
 package sia.tacocloud
 
-data class Ingredient(private val id: String,
-                      private val name: String,
+data class Ingredient(val id: String,
+                      val name: String,
                       private val type: Type){
     // enum класс-перечисления
     enum class Type{ WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE }

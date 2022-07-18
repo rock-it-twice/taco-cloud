@@ -32,20 +32,20 @@ class DesignTacoController {
         )
         val types = Ingredient.Type.values()
         types.forEach {
-            model.addAttribute(it.toString().lowercase())
-            filterByType(ingredients, it)
+            model.addAttribute(it.toString().lowercase(),
+            filterByType(ingredients, it))
         }
     }
-    @ModelAttribute(name = "TacoOrder")
+    @ModelAttribute(name = "tacoOrder")
     fun tacoOrder() = TacoOrder()
-    @ModelAttribute(name = "Taco")
+    @ModelAttribute(name = "taco")
     fun taco() = Taco()
     @GetMapping
     fun showDesignForm() = "design"
 
     private fun filterByType(ingredients: List<Ingredient>, type: Ingredient.Type): Iterable<Ingredient> {
         return ingredients.stream()
-            .filter{ x -> x.getType().equals(type) }
+            .filter{ x -> x.getType() == type }
             .collect(Collectors.toList())
     }
 }

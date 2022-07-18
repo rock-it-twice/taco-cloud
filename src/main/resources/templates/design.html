@@ -14,7 +14,7 @@
     <img class="inline-flex-item" th:src="@{/images/taco-100.png}">
   </div>
   <div>
-    <form method="POST" th:object="${design}">
+    <form method="POST" th:object="${taco}">
       <div class="grid">
 
         <div class="ingredient-group" id="wraps">
@@ -61,7 +61,7 @@
           <h3>Name your taco creation: </h3>
           <input type="text" th:field="*{name}">
           <br/>
-          <button>Submit your taco!</button>
+          <button id="submit-button">Submit your taco!</button>
         </div>
 
       </div>

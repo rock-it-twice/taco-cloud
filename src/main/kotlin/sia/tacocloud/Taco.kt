@@ -1,5 +1,5 @@
 package sia.tacocloud
 
-data class Taco(private var name: String = "",
-                private var ingredients: List<Ingredient> = listOf()
-)
+data class Taco(var name: String = "",
+                var ingredients: MutableList<Ingredient> = mutableListOf()
+               )
