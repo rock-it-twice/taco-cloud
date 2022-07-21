@@ -3,12 +3,19 @@
     display: flex;
     -webkit-flex-direction: row;
     flex-direction: row;
+    flex-basis: auto;
 }
 
 #flex-container > .inline-flex-item {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+.ingredient-group {
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: 2em;
 }
 
 #submit-button {
