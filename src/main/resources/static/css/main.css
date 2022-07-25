@@ -25,6 +25,11 @@
     margin-right: 1em;
 }
 
+.validation-Error {
+    display: inline-block;
+    color: rgb(255, 0 ,0);
+}
+
 #submit-button {
     margin-top: 1em;
 }

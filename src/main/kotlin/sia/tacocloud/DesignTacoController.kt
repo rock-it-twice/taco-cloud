@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.SessionAttributes
 import java.util.*
 import java.util.stream.Collectors
 import mu.KotlinLogging
+import org.springframework.validation.Errors
+import javax.validation.Valid
 
 
 private val logger = KotlinLogging.logger {}
@@ -47,7 +49,6 @@ class DesignTacoController {
             .filter{ x -> x.getType() == type }
             .collect(Collectors.toList())
     }
-
     @ModelAttribute(name = "tacoOrder")
     fun tacoOrder() = TacoOrder()
     @ModelAttribute(name = "taco")
@@ -56,7 +57,10 @@ class DesignTacoController {
     fun showDesignForm() = "design"
 
     @PostMapping
-    fun processTaco(taco: Taco, @ModelAttribute tacoOrder: TacoOrder): String{
+    fun processTaco(@Valid taco: Taco,
+                    errors: Errors,
+                    @ModelAttribute tacoOrder: TacoOrder): String{
+        if (errors.hasErrors()) return "design"
         tacoOrder.addTaco(taco)
         logger.info { "Processing taco: $taco" }
         return "redirect:/orders/current"
