@@ -2,20 +2,27 @@
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: row;
-    flex-direction: row;
+    flex-direction: column;
     flex-basis: auto;
 }
 
 #flex-container > .inline-flex-item {
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-around;
 }
 
 .ingredient-group {
     display: inline-flex;
     flex-direction: column;
     margin-right: 2em;
+}
+
+.form-to-fill {
+    display: inline-flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    margin-right: 1em;
 }
 
 #submit-button {

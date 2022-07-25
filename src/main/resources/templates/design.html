@@ -8,10 +8,10 @@
   <title>styles</title>
   <link rel="stylesheet" type="text/css" media="all" data-th-href="@{/css/main.css}">
 </head>
-<body>
-  <div id="flex-container">
-    <h1 class="inline-flex-item">Design your taco!</h1>
-    <img class="inline-flex-item" th:src="@{/images/taco-100.png}">
+<body id="flex-container">
+  <div class="inline-flex-item">
+    <h1>Design your taco!</h1>
+    <img th:src="@{/images/taco-100.png}">
   </div>
   <div>
     <form method="POST" th:object="${taco}">

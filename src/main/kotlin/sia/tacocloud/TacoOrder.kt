@@ -1,14 +1,14 @@
 package sia.tacocloud
 
-data class TacoOrder(private var deliveryName: String = "",
-                     private var deliveryStreet: String = "",
-                     private var deliveryCity: String = "",
-                     private var deliveryState: String = "",
-                     private var deliveryZip: String = "",
-                     private var ccNumber: String = "",
-                     private var ccExpiration: String = "",
-                     private var ccCVV: String = "",
-                     private var tacos: MutableList<Taco> = mutableListOf()
+data class TacoOrder(val deliveryName: String = "",
+                     val deliveryStreet: String = "",
+                     val deliveryCity: String = "",
+                     val deliveryState: String = "",
+                     val deliveryZip: String = "",
+                     val ccNumber: String = "",
+                     val ccExpiration: String = "",
+                     val ccCVV: String = "",
+                     val tacos: MutableList<Taco> = mutableListOf()
                     ){
     fun addTaco(taco: Taco) = tacos.add(taco)
 }
