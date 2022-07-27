@@ -58,8 +58,8 @@ class DesignTacoController {
 
     @PostMapping
     fun processTaco(@Valid taco: Taco,
-                    errors: Errors,
-                    @ModelAttribute tacoOrder: TacoOrder): String{
+                    @ModelAttribute tacoOrder: TacoOrder,
+                    errors: Errors): String{
         if (errors.hasErrors()) return "design"
         tacoOrder.addTaco(taco)
         logger.info { "Processing taco: $taco" }
