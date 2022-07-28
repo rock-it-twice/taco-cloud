@@ -1,11 +1,16 @@
 package sia.tacocloud
 
 import org.hibernate.validator.constraints.CreditCardNumber
+import java.sql.Date
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
+import kotlinx.serialization.Serializable
 
-data class TacoOrder(@field:NotBlank(message="Delivery name is required")
+@Serializable
+data class TacoOrder(private val serialVersionUID: Long = 1L,
+                     private var id: Long = 0,
+                     @field:NotBlank(message="Delivery name is required")
                      var deliveryName: String = "",
                      @field:NotBlank(message="Delivery street is required")
                      var deliveryStreet: String = "",
@@ -24,5 +29,8 @@ data class TacoOrder(@field:NotBlank(message="Delivery name is required")
                      var ccCVV: String = "",
                      val tacos: MutableList<Taco> = mutableListOf()
                     ){
+    private lateinit var placedAt: Date
     fun addTaco(taco: Taco) = tacos.add(taco)
+    fun setId(id: Long) { this.id = id }
+    fun setPlacedAt(placedAt: Date){ this.placedAt = placedAt }
 }

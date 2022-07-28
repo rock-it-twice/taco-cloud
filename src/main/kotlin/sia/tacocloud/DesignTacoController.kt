@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes
 import java.util.*
 import java.util.stream.Collectors
 import mu.KotlinLogging
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.Errors
 import javax.validation.Valid
 
@@ -21,26 +22,16 @@ private val logger = KotlinLogging.logger {}
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
-class DesignTacoController {
+class DesignTacoController(@Autowired private val ingredientRepo: IngredientRepository) {
+
 
     @ModelAttribute
     fun addIngredientsToModel(model: Model){
-        val ingredients: List<Ingredient> = listOf(
-            Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP),
-            Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP),
-            Ingredient("GRBF", "Ground Beef", Ingredient.Type.PROTEIN),
-            Ingredient("CARN", "Carnita", Ingredient.Type.PROTEIN),
-            Ingredient("TMTO","Diced Tomato", Ingredient.Type.VEGGIES),
-            Ingredient("LETC","Lettuce", Ingredient.Type.VEGGIES),
-            Ingredient("CHED","Chedder", Ingredient.Type.CHEESE),
-            Ingredient("JACK","Monterrey Jack", Ingredient.Type.CHEESE),
-            Ingredient("SLSA","Salsa", Ingredient.Type.SAUCE),
-            Ingredient("SRCR","Sour Cream", Ingredient.Type.SAUCE)
-        )
+        val ingredients: Iterable<Ingredient> = ingredientRepo.findAll()
         val types = Ingredient.Type.values()
         types.forEach {
             model.addAttribute(it.toString().lowercase(),
-            filterByType(ingredients, it))
+            filterByType(ingredients.toList(), it))
         }
     }
 
@@ -58,9 +49,11 @@ class DesignTacoController {
 
     @PostMapping
     fun processTaco(@Valid taco: Taco,
-                    @ModelAttribute tacoOrder: TacoOrder,
-                    errors: Errors): String{
-        if (errors.hasErrors()) return "design"
+                    errors: Errors,
+                    @ModelAttribute tacoOrder: TacoOrder
+                    ): String{
+        if (errors.hasErrors()) {
+            return "design"}
         tacoOrder.addTaco(taco)
         logger.info { "Processing taco: $taco" }
         return "redirect:/orders/current"
