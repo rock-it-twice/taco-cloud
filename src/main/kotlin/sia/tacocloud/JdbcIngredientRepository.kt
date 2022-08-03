@@ -2,17 +2,15 @@ package sia.tacocloud
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository
 import java.sql.ResultSet
-import java.sql.SQLException
-import java.util.*
+
 
 @Repository
-class JdbcIngredientRepository(@Autowired private var jdbcTemplate:JdbcTemplate): IngredientRepository {
+class JdbcIngredientRepository(@Autowired private val jdbcTemplate:JdbcTemplate): IngredientRepository {
 
     // Лямбда-выражение, которое преобразует результат запроса в ResultSet (RawMapping)
-    private var resultSet =
+    private val resultSet =
         { rs: ResultSet, _: Int -> Ingredient(rs.getString("id"), rs.getString("name"),
         Ingredient.Type.valueOf(rs.getString("type"))) }
     // Тексты запросов

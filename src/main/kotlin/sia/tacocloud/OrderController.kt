@@ -1,6 +1,5 @@
 package sia.tacocloud
 
-import lombok.extern.slf4j.Slf4j
 import mu.KotlinLogging
 import org.springframework.stereotype.Controller
 import org.springframework.validation.Errors
@@ -11,12 +10,11 @@ import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
 import javax.validation.Valid
 
-@Slf4j
+
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
-
-class OrderController {
+class OrderController(val orderRepository: OrderRepository) {
     private val logger = KotlinLogging.logger {}
 
     @GetMapping("/current")
@@ -26,8 +24,9 @@ class OrderController {
                      errors: Errors,
                      sessionStatus: SessionStatus): String {
         if (errors.hasErrors()) return "orderForm"
-        logger.info { "Order submitted: $order" }
+        orderRepository.save(order)
         sessionStatus.setComplete()
+
         return "redirect:/"
     }
 }

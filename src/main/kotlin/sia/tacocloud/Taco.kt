@@ -1,12 +1,13 @@
 package sia.tacocloud
 
 
-import java.sql.Date
+import java.util.Date
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 
 data class Taco(private var id: Long = 0,
+                private var createdAt: Date,
                 @field:NotBlank(message = "Field can't be blank")
                 @field:Size(min = 5, message = "Name must be at least 5 characters long")
                 var name: String = "",
@@ -14,11 +15,14 @@ data class Taco(private var id: Long = 0,
                 var ingredients: List<Ingredient> = listOf(),
 
                ){
-    private lateinit var createdAt: Date
+
     fun setId(id: Long) {
         this.id = id
     }
+    fun getId() = id
+
     fun setCreatedAt(createdAt: Date) {
         this.createdAt = createdAt
     }
+    fun getCreatedAt() = createdAt
 }
