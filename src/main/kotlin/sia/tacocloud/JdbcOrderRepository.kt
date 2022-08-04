@@ -96,19 +96,19 @@ class JdbcOrderRepository(@Autowired private val jdbcOprations: JdbcOperations):
         val tacoId = keyHolder.key!!.toLong()
         taco.setId(tacoId)
 
-        saveIngredientsRefs(tacoId, IngredientRef(taco.ingredients))
+        saveIngredientsRefs(tacoId, taco.ingredients)
         return tacoId
     }
 
     // Функция для сохранения связующего объекта Ingredient_Ref в БД ingredient_Ref
-    private fun saveIngredientsRefs(tacoId: Long, ingredientRefs: List<IngredientRef>){
+    private fun saveIngredientsRefs(tacoId: Long, ingredientRefs: List<Ingredient>){
         var key = 0
         val insertBody: String = "insert INTO Ingredient_Ref (ingredient, taco, taco_key)"
         // Вместо вопросов Spring подставит данные представленные в объекте pscf (Types.VARCHAR и т.д.)
         val insertValues: String = " values (?, ?, ?)"
 
         // Передача всех экземпляров Taco в БД
-        ingredientRefs.forEach {jdbcOprations.update(insertBody + insertValues, it.getIngredient(), tacoId, key++)}
+        ingredientRefs.forEach {jdbcOprations.update(insertBody + insertValues, it.id, tacoId, key++)}
     }
 
 

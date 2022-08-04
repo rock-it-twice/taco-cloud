@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TacoOrder(private val serialVersionUID: Long = 1L,
                      private var id: Long = 0,
-                     private var placedAt: Date,
+                     private var placedAt: Date = Date(),
                      @field:NotBlank(message="Delivery name is required")
                      var deliveryName: String = "",
                      @field:NotBlank(message="Delivery street is required")
