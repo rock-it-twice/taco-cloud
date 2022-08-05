@@ -1,8 +1,7 @@
 package sia.tacocloud
 
+import org.springframework.data.repository.CrudRepository
+import java.util.*
 
-interface IngredientRepository {
-    fun findAll(): Iterable<Ingredient>
-    fun findById(id: String): Ingredient?
-    fun save(ingredient: Ingredient): Ingredient
-}
+// CrudRepository уже содержит все необходимые методы, для манипуляции с хранилищем
+interface IngredientRepository: CrudRepository<Ingredient, String>
