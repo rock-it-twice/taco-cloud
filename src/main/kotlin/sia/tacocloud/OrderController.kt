@@ -15,7 +15,6 @@ import javax.validation.Valid
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 class OrderController(val orderRepository: OrderRepository) {
-    private val logger = KotlinLogging.logger {}
 
     @GetMapping("/current")
     fun orderForm() = "orderForm"

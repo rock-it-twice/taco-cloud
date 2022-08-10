@@ -24,6 +24,7 @@ class WebConfig: WebMvcConfigurer {
             repo.save(Ingredient("CHED", "Cheddar", Ingredient.Type.CHEESE))
             repo.save(Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE))
             repo.save(Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE))
+            repo.save(Ingredient("SRCR", "Sour cream", Ingredient.Type.SAUCE))
         }
     }
 

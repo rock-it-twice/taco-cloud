@@ -1,29 +1,25 @@
 package sia.tacocloud
 
+import com.datastax.oss.driver.api.core.uuid.Uuids
 import org.hibernate.validator.constraints.CreditCardNumber
 import java.util.Date
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 import kotlinx.serialization.Serializable
-import lombok.Data
-import org.springframework.data.relational.core.mapping.Column
-import org.springframework.data.relational.core.mapping.Table
-import javax.persistence.CascadeType
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.OneToMany
+import org.springframework.data.cassandra.core.mapping.Column
+import org.springframework.data.cassandra.core.mapping.PrimaryKey
+import org.springframework.data.cassandra.core.mapping.Table
+import java.util.UUID
 
-@Data
-@Entity
+
+@Table("orders")
 @Serializable
-class TacoOrder(private val serialVersionUID: Long = 1L,
-                @Id
-                private var id: Long = 0,
-                private var placedAt: Date = Date(),
-                // аннотация @Column указывает сохранять данные переменной deliveryName
-                // в столбце "customer_name" (а не по умолчанию в "delivery_name")
-                @Column("customer_name")
+data class TacoOrder(private val serialVersionUID: Long = 1L,
+                @PrimaryKey
+                private val id: UUID = Uuids.timeBased(),
+                private val placedAt: Date = Date(),
+                @Column("customer_name") // указывает хранить данные в столбце "customer_name"
                 @field:NotBlank(message="Delivery name is required")
                 var deliveryName: String = "",
                 @field:NotBlank(message="Delivery street is required")
@@ -40,8 +36,8 @@ class TacoOrder(private val serialVersionUID: Long = 1L,
                 var ccExpiration: String = "",
                 @field:Digits(integer = 3, fraction = 0, message = "Invalid CVV")
                 var ccCVV: String = "",
-                @OneToMany(cascade = [CascadeType.ALL])
-                private val tacos: MutableList<Taco> = mutableListOf()){
+                @Column("tacos")
+                private val tacos: MutableList<TacoUDT> = mutableListOf()){
 
-    fun addTaco(taco: Taco) = tacos.add(taco)
+    fun addTaco(taco: Taco) = tacos.add(TacoUDRUtils.toTacoUDT(taco))
 }

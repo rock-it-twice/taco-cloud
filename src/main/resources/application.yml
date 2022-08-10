@@ -4,3 +4,8 @@ spring:
   datasource:
   generate-unique-name: false
   datasource.name: tacocloud
+  data:
+    cassandra:
+      keyspace-name: tacocloud
+      local-datacenter: datacenter1
+      schema-action: recreate

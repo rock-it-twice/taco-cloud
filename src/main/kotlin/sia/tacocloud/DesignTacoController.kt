@@ -21,12 +21,12 @@ private val logger = KotlinLogging.logger {}
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
-class DesignTacoController(@Autowired private val ingredientRepo: IngredientRepository) {
+class DesignTacoController(@Autowired private var ingredientRepository: IngredientRepository) {
 
 
     @ModelAttribute
     fun addIngredientsToModel(model: Model){
-        val ingredients: Iterable<Ingredient> = ingredientRepo.findAll()
+        val ingredients: Iterable<Ingredient> = ingredientRepository.findAll()
         val types = Ingredient.Type.values()
         types.forEach {
             model.addAttribute(it.toString().lowercase(),
@@ -52,6 +52,9 @@ class DesignTacoController(@Autowired private val ingredientRepo: IngredientRepo
                     @ModelAttribute tacoOrder: TacoOrder
                     ): String{
         if (errors.hasErrors()) {
+            println("--------------------------------------------------------")
+            println(errors.allErrors)
+            println("--------------------------------------------------------")
             return "design"}
         tacoOrder.addTaco(taco)
         logger.info { "Processing taco: $taco" }

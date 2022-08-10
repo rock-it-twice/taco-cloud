@@ -1,29 +1,36 @@
 package sia.tacocloud
 
 
+import com.datastax.oss.driver.api.core.uuid.Uuids
 import lombok.Data
+import org.springframework.data.cassandra.core.cql.Ordering
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType
+import org.springframework.data.cassandra.core.mapping.Column
+import org.springframework.data.cassandra.core.mapping.PrimaryKey
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn
+import org.springframework.data.cassandra.core.mapping.Table
 
 import java.util.Date
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.ManyToMany
+import java.util.UUID
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
 @Data
-@Entity
-class Taco(@Id
-           @GeneratedValue(strategy = GenerationType.AUTO)
-           private var id: Long = 0,
+@Table("tacos")
+class Taco(@PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
+           private val id: UUID = Uuids.timeBased(),
            @field:NotBlank(message = "Field can't be blank")
            @field:Size(min = 5, message = "Name must be at least 5 characters long")
            private var name: String = "",
-           private var createdAt: Date = Date(),
+           @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
+           private val createdAt: Date = Date(),
            @field:Size(min=1, message = "You must choose at least 1 ingredient")
-           @ManyToMany
-           private val ingredients: MutableList<Ingredient> = mutableListOf()) {
-    fun addIngredient(ingredient: Ingredient) = ingredients.add(ingredient)
+           @Column("ingredients") //Тип переменной <IngredientUDT> (UDT - user defined type)
+           private val ingredients: MutableList<IngredientUDT> = mutableListOf()) {
+
+    fun setName(name: String) { this.name = name }
+    fun addIngredient(ingredient: Ingredient) = ingredients.add(TacoUDRUtils.toIngredientUDT(ingredient))
+    fun getIngredients() = ingredients
+    fun getName() = name
 
 }
