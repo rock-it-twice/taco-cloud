@@ -40,4 +40,5 @@ data class TacoOrder(private val serialVersionUID: Long = 1L,
                 private val tacos: MutableList<TacoUDT> = mutableListOf()){
 
     fun addTaco(taco: Taco) = tacos.add(TacoUDRUtils.toTacoUDT(taco))
+    fun getTacos() = tacos
 }

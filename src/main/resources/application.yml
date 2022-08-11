@@ -6,6 +6,12 @@ spring:
   datasource.name: tacocloud
   data:
     cassandra:
+      request:
+        timeout: 120000
+        connect-timeout-millis: 10000
+        read-timeout-millis: 10000
+        connect-timeout: 10000
+        read-timeout: 10000
       keyspace-name: tacocloud
       local-datacenter: datacenter1
       schema-action: recreate

@@ -53,6 +53,7 @@ class DesignTacoController(@Autowired private var ingredientRepository: Ingredie
                     ): String{
         if (errors.hasErrors()) {
             println("--------------------------------------------------------")
+            logger.info { "taco: $taco" }
             println(errors.allErrors)
             println("--------------------------------------------------------")
             return "design"}
