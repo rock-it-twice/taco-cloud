@@ -28,21 +28,20 @@ class DesignTacoController(@Autowired private var ingredientRepository: Ingredie
     fun addIngredientsToModel(model: Model){
         val ingredients: Iterable<Ingredient> = ingredientRepository.findAll()
         val types = Ingredient.Type.values()
-        types.forEach {
-            model.addAttribute(it.toString().lowercase(),
-            filterByType(ingredients.toList(), it))
-        }
+        types.forEach { model.addAttribute(it.toString().lowercase(), filterByType(ingredients.toList(), it)) }
     }
 
     private fun filterByType(ingredients: List<Ingredient>, type: Ingredient.Type): Iterable<Ingredient> {
-        return ingredients.stream()
-            .filter{ x -> x.getType() == type }
-            .collect(Collectors.toList())
+        return ingredients.filter{ it.getType() == type }.toList()
     }
+
     @ModelAttribute(name = "tacoOrder")
     fun tacoOrder() = TacoOrder()
+
     @ModelAttribute(name = "taco")
     fun taco() = Taco()
+
+
     @GetMapping
     fun showDesignForm() = "design"
 

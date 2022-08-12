@@ -16,22 +16,22 @@ import javax.validation.constraints.Size
 
 @Table("tacos")
 data class Taco(@PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
-           private val id: UUID = Uuids.timeBased(),
-           @field:NotBlank(message = "Field can't be blank")
-           @field:Size(min = 5, message = "Name must be at least 5 characters long")
-           private var name: String = "",
-           @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
-           private val createdAt: Date = Date(),
-           @Column("ingredients")
-           @field:Size(min=1, message = "You must choose at least 1 ingredient")
-           //Тип переменной <IngredientUDT> (UDT - user defined type)
-           private val ingredients: MutableList<IngredientUDT> = mutableListOf()) {
+                private val id: UUID = Uuids.timeBased(),
+                @field:NotBlank(message = "Field can't be blank")
+                @field:Size(min = 5, message = "Name must be at least 5 characters long")
+                private var name: String = "",
+                @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
+                private val createdAt: Date = Date(),
+                @Column("ingredients")
+                @field:Size(min=1, message = "You must choose at least 1 ingredient")
+                //Тип переменной <IngredientUDT> (UDT - user defined type)
+                private val ingredients: MutableList<IngredientUDT> = mutableListOf()) {
 
     fun setName(name: String) { this.name = name }
     fun addIngredient(ingredient: Ingredient) {
-        println(ingredient)
         ingredients.add(TacoUDRUtils.toIngredientUDT(ingredient))
     }
+
     fun getIngredients() = ingredients
     fun getName() = name
 
