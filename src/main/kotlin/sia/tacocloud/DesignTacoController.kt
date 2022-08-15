@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.SessionAttributes
-import java.util.stream.Collectors
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.Errors
@@ -22,7 +21,6 @@ private val logger = KotlinLogging.logger {}
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 class DesignTacoController(@Autowired private var ingredientRepository: IngredientRepository) {
-
 
     @ModelAttribute
     fun addIngredientsToModel(model: Model){

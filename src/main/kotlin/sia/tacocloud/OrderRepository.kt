@@ -5,7 +5,7 @@ import java.util.*
 
 
 // CrudRepository уже содержит все необходимые методы, для манипуляции с хранилищем
-interface OrderRepository : CrudRepository<TacoOrder, UUID>{
+interface OrderRepository : CrudRepository<TacoOrder, String>{
 
     // Поиск по Delivery_zip
     // fun findByDeliveryZip(deliveryZip: String): List<TacoOrder>

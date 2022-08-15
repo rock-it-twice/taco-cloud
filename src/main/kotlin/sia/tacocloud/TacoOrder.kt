@@ -1,25 +1,23 @@
 package sia.tacocloud
 
-import com.datastax.oss.driver.api.core.uuid.Uuids
+
 import org.hibernate.validator.constraints.CreditCardNumber
 import java.util.Date
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 import kotlinx.serialization.Serializable
-import org.springframework.data.cassandra.core.mapping.Column
-import org.springframework.data.cassandra.core.mapping.PrimaryKey
-import org.springframework.data.cassandra.core.mapping.Table
-import java.util.UUID
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.Field
 
 
-@Table("orders")
+@Document
 @Serializable
 data class TacoOrder(private val serialVersionUID: Long = 1L,
-                @PrimaryKey
-                private val id: UUID = Uuids.timeBased(),
+                @Id
+                private var id: String? = null, //Если id - null, MongoDB его сгенерирует автоматоматически
                 private val placedAt: Date = Date(),
-                @Column("customer_name") // указывает хранить данные в столбце "customer_name"
                 @field:NotBlank(message="Delivery name is required")
                 var deliveryName: String = "",
                 @field:NotBlank(message="Delivery street is required")
@@ -36,9 +34,10 @@ data class TacoOrder(private val serialVersionUID: Long = 1L,
                 var ccExpiration: String = "",
                 @field:Digits(integer = 3, fraction = 0, message = "Invalid CVV")
                 var ccCVV: String = "",
-                @Column("tacos")
-                private val tacos: MutableList<TacoUDT> = mutableListOf()){
+                private val tacos: MutableList<Taco> = mutableListOf()){
 
-    fun addTaco(taco: Taco) = tacos.add(TacoUDRUtils.toTacoUDT(taco))
+    fun setId(id: String) { this.id = id }
+
+    fun addTaco(taco: Taco) = tacos.add(taco)
     fun getTacos() = tacos
 }

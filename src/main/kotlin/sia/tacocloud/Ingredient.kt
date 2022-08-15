@@ -1,20 +1,21 @@
 package sia.tacocloud
-import org.springframework.data.cassandra.core.mapping.PrimaryKey
-import org.springframework.data.cassandra.core.mapping.Table
+import lombok.AccessLevel
+import lombok.AllArgsConstructor
+import lombok.Data
+import lombok.NoArgsConstructor
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 
 
-
-@Table("ingredients")
-data class Ingredient(@PrimaryKey
-                      private val id: String,
-                      private val name: String,
-                      private val type: Type) {
+@Document("ingredient")
+data class Ingredient(@Id
+                 private var id: String,
+                 private var name: String,
+                 private var type: Type) {
+    fun getType() = type
+    fun getId() = id
+    fun getName() = name
 
     // enum класс-перечисления
     enum class Type{ WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE }
-
-    fun getId() = id
-    fun getName() = name
-    fun getType() = type
-
   }
