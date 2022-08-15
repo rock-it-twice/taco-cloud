@@ -14,15 +14,16 @@ data class Taco(
                 private var name: String = "",
                 private val createdAt: Date = Date(),
                 @field:Size(min=1, message = "You must choose at least 1 ingredient")
-                private val ingredients: MutableList<Ingredient> = mutableListOf()) {
+                private var ingredients: MutableList<Ingredient> = mutableListOf()) {
 
     fun setName(name: String) { this.name = name }
 
-    fun addIngredient(ingredient: Ingredient) {
-        ingredients.add(ingredient)
-    }
+    fun setIngredients(ingredients: MutableList<Ingredient>) { this.ingredients = ingredients }
+
+    fun addIngredient(ingredient: Ingredient) { ingredients.add(ingredient) }
+
+    fun getName() = name
 
     fun getIngredients() = ingredients
-    fun getName() = name
 
 }

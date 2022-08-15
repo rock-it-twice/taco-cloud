@@ -9,7 +9,7 @@ import java.util.*
 
 // Класс для конвертации запроса из типа String в тип Ingredient
 @Component // Аннотация для автоматической регистрации конвертера в SpringMVC
-class IngredientByIdConverter(@Autowired private val ingredientRepo: IngredientRepository):
+class IngredientByIdConverter(@Autowired val ingredientRepo: IngredientRepository):
     Converter<String, Ingredient> {
     //Переопределяем функцию класса Converter фреймворка Spring
     override fun convert(id: String): Ingredient? = ingredientRepo.findByIdOrNull(id)

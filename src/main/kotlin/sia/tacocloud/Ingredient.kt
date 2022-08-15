@@ -1,17 +1,16 @@
 package sia.tacocloud
-import lombok.AccessLevel
-import lombok.AllArgsConstructor
-import lombok.Data
-import lombok.NoArgsConstructor
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 
-@Document("ingredient")
+@Document(collection = "ingredients")
 data class Ingredient(@Id
-                 private var id: String,
-                 private var name: String,
-                 private var type: Type) {
+                      private var id: String = "",
+                      private var name: String = "",
+                      private var type: Type) {
+    fun setId(id: String) { this.id = id }
+    fun setName(name: String) { this.name = name }
+    fun setType(type: Type) { this.type = type }
     fun getType() = type
     fun getId() = id
     fun getName() = name
