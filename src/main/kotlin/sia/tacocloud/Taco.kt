@@ -23,7 +23,12 @@ class Taco(@Id
            private var createdAt: Date = Date(),
            @field:Size(min=1, message = "You must choose at least 1 ingredient")
            @ManyToMany
-           private val ingredients: MutableList<Ingredient> = mutableListOf()) {
+           private var ingredients: MutableList<Ingredient> = mutableListOf()) {
+    fun setName(name: String) { this.name = name }
+    fun setIngredients(ingredients: MutableList<Ingredient>) { this.ingredients = ingredients }
+
+    fun getName() = name
+    fun getIngredients() = ingredients
     fun addIngredient(ingredient: Ingredient) = ingredients.add(ingredient)
 
 }

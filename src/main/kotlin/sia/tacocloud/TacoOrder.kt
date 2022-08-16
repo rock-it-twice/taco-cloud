@@ -43,5 +43,7 @@ class TacoOrder(private val serialVersionUID: Long = 1L,
                 @OneToMany(cascade = [CascadeType.ALL])
                 private val tacos: MutableList<Taco> = mutableListOf()){
 
+    fun getTacos() = tacos
+
     fun addTaco(taco: Taco) = tacos.add(taco)
 }
