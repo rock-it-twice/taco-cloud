@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Taco Cloud</title>
+  <title>styles</title>
+  <link rel="stylesheet" type="text/css" media="all" data-th-href="@{/css/main.css}">
+</head>
+
+<body id="flex-container">
+  <div class="inline-flex-item">
+    <h1>Taco Cloud</h1>
+    <img th:src="@{/images/taco-100.png}">
+  </div>
+  <h2>Register</h2>
+
+  <div>
+    <form method="POST" th:action="@{/register}" id="registerForm">
+
+      <div>
+        <div class="form-to-fill">
+          <label for="username">Username: </label>
+          <input type="text" name="username"/><br/>
+
+          <label for="password">Password: </label>
+          <input type="text" name="password"/><br/>
+
+          <label for="confirm">Confirm password: </label>
+          <input type="text" name="confirm"/><br/>
+
+          <label for="fullname">Full name: </label>
+          <input type="text" name="fullname"/><br/>
+        </div><br/><br/>
+
+        <div class="form-to-fill">
+          <label for="street">Street: </label>
+          <input type="text" name="street"/><br/>
+
+          <label for="city">City: </label>
+          <input type="text" name="city"/><br/>
+
+          <label for="state">State: </label>
+          <input type="text" name="state"/><br/>
+
+          <label for="zip">Zip: </label>
+          <input type="text" name="zip"/><br/>
+        </div><br/><br/>
+
+        <div class="form-to-fill">
+          <label for="phone">Phone: </label>
+          <input type="text" name="phone"/><br/>
+        </div>
+      </div><br/>
+
+
+      <input type="submit" value="Register"/><br/>
+    </form>
+  </div>
+</body>
+
+</html>
