@@ -23,6 +23,9 @@ class RegistrationController(@Autowired
     @PostMapping
     fun processRegistration(form: RegistrationForm): String {
         userRepo.save(form.toUser(passwordEncoder))
+        println("__________________________________________")
+        println(userRepo.findAll())
+        println("__________________________________________")
         return "redirect:/login"
     }
 

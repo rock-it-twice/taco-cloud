@@ -4,3 +4,23 @@ spring:
   datasource:
   generate-unique-name: false
   datasource.name: tacocloud
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            clientId: 1271589200271151
+            clientSecret: 07d535219e9952eb29272404383d6a23
+            scope: email, public_profile
+  data:
+    rest:
+      base-path: /data-api
+
+logging:
+  file:
+    path: /var/logs
+    file: TacoCloud.log
+    level:
+      root: WARN
+      org.springframework.security: DEBUG
+

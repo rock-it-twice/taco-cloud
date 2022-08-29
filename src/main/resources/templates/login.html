@@ -17,11 +17,12 @@
   </div>
   <h2>Login</h2>
   <div th:if="${error}">
-    Unable to login. Please, check your username and password.
+    <p>Unable to login. Please, check your username and password.</p>
   </div>
 
   <p>New? Click
-  <a th:href="@{/register}"> here</a> to register.</p>
+  <a th:href="@{/register}"> here</a> to register.</p><br/>
+
   <div>
     <form method="POST" th:action="@{/login}" id="loginForm">
       <div class="form-to-fill">

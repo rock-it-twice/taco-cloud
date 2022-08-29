@@ -2,6 +2,6 @@ package sia.tacocloud
 
 import org.springframework.data.repository.CrudRepository
 
-interface UserRepository: CrudRepository<User, Long> {
-    fun findByUsername(username: String): User?
+interface UserRepository: CrudRepository<TacoUser, Long> {
+    fun findByUsername(username: String): TacoUser?
 }

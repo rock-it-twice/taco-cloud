@@ -6,5 +6,5 @@ import java.util.Date
 
 
 // CrudRepository уже содержит все необходимые методы, для манипуляции с хранилищем
-interface OrderRepository : CrudRepository<TacoOrder, Long>{
-}
+// Create Read Update Delete
+interface OrderRepository : CrudRepository<TacoOrder, Long>
